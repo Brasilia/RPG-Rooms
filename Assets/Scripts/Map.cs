@@ -17,19 +17,6 @@ public class Map {
 
 	}
 
-//	public void Start(){
-//		rooms = new Room[SIZE,SIZE];
-//		Debug.Log (rooms [0, 0]);
-//		ReadFile ("Assets/Data/data.txt");
-//		Debug.Log (rooms [0, 0]);
-//
-//		for (int y = 0; y < SIZE; y++){
-//			for (int x = 0; x < SIZE; x++){
-//				Debug.Log (rooms [x, y]);
-//			}
-//		}
-//	}
-
 	private void ReadFile(string filepath){
 		StreamReader streamReader = new StreamReader(filepath);
 
@@ -39,9 +26,7 @@ public class Map {
 			x = int.Parse(streamReader.ReadLine () );
 			y = int.Parse(streamReader.ReadLine () );
 			code = streamReader.ReadLine ();
-			//Debug.Log ("x = " + x);
-			//Debug.Log ("y = " + y);
-			//Debug.Log ("code = " + code);
+
 			rooms [x, y] = new Room (x, y);
 			//Sala ou corredor(link)?
 			if ((x%2)+(y%2) == 0){ // ambos pares: sala
@@ -55,13 +40,11 @@ public class Map {
 					endY = y;
 					break;
 				default:
-					//Debug.Log ("Default");
 					rooms [x, y].keyID = int.Parse (code);
 					break;
 				}
 			} else { // corredor (link)
 				if (code != "c"){
-					//Debug.Log ("Else code: " + code);
 					rooms [x, y].lockID = -int.Parse (code);
 				}
 			}

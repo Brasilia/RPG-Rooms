@@ -16,4 +16,11 @@ public class KeyBHV : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.tag == "Player"){
+			Player.instance.GetKey (keyID);
+			Destroy (gameObject);
+		}
+	}
 }
