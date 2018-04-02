@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	public RoomBHV[,] roomBHVMap; //2D array for easy room indexing
 	public float roomSpacingX = 10.5f; //Spacing between rooms: X
 	public float roomSpacingY = 6f; //Spacing between rooms: Y
-	public string filePath = "Assets/Data/data.txt"; //Path to load map data from
+	public string filePath = "Assets/Data/map.txt"; //Path to load map data from
 
 	void Awake(){
 		//Singleton

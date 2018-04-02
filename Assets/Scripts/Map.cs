@@ -11,21 +11,24 @@ public class Map {
 	public int startX, startY;
 	public int endX, endY;
 
-	public Map(string filepath){
+	public Map(string filepath, string filepathRooms = null){
 		rooms = new Room[SIZE,SIZE];
-		ReadFile (filepath);
-
+		ReadMapFile (filepath); // lê o mapa global
+		if (filepathRooms != null){ // dá a opção de gerar o mapa sem os tiles
+			ReadRoomsFile (); // lê cada sala, com seus tiles
+			Room.tiled = true; // o arquivo de tiles das salas foi lido; função de tiles ativada
+		}
 	}
 
-	private void ReadFile(string filepath){
-		StreamReader streamReader = new StreamReader(filepath);
+	private void ReadMapFile(string filepath){
+		StreamReader streamReaderMap = new StreamReader(filepath);
 
-		while(!streamReader.EndOfStream){
+		while(!streamReaderMap.EndOfStream){
 			int x, y;
 			string code;
-			x = int.Parse(streamReader.ReadLine () );
-			y = int.Parse(streamReader.ReadLine () );
-			code = streamReader.ReadLine ();
+			x = int.Parse(streamReaderMap.ReadLine () );
+			y = int.Parse(streamReaderMap.ReadLine () );
+			code = streamReaderMap.ReadLine ();
 
 			rooms [x, y] = new Room (x, y);
 			//Sala ou corredor(link)?
@@ -49,5 +52,26 @@ public class Map {
 				}
 			}
 		}
+		Debug.Log ("Dungeon read.");
+	}
+
+	//Recebe os dados de tiles das salas
+	private void ReadRoomsFile(){
+		string filepath = "Assets/Data/rooms.txt";
+		StreamReader streamReaderRoom = new StreamReader (filepath);
+		Room.sizeX = int.Parse( streamReaderRoom.ReadLine () );
+		Room.sizeY = int.Parse( streamReaderRoom.ReadLine () );
+		while (!streamReaderRoom.EndOfStream){
+			int roomX, roomY;
+			roomX = int.Parse( streamReaderRoom.ReadLine () );
+			roomY = int.Parse( streamReaderRoom.ReadLine () );
+			rooms [roomX, roomY].InitializeTiles (); // aloca memória para os tiles
+			for (int x = 0; x < Room.sizeX; x++){
+				for (int y = 0; y < Room.sizeY; y++){
+					rooms [roomX, roomY].tiles [x, y] = int.Parse( streamReaderRoom.ReadLine () );
+				}
+			}
+		}
+		Debug.Log ("Rooms read.");
 	}
 }
