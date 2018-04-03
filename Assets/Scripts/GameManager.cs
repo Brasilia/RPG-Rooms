@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour {
 	public RoomBHV[,] roomBHVMap; //2D array for easy room indexing
 	public float roomSpacingX = 10.5f; //Spacing between rooms: X
 	public float roomSpacingY = 6f; //Spacing between rooms: Y
-	public string filePath = "Assets/Data/map.txt"; //Path to load map data from
+	public string mapFilePath = "Assets/Data/map.txt"; //Path to load map data from
+	public string roomsFilePath = "Assets/Data/rooms.txt";
+	public bool readRooms = true;
 
 	void Awake(){
 		//Singleton
@@ -22,14 +24,14 @@ public class GameManager : MonoBehaviour {
 		}
 		DontDestroyOnLoad (gameObject);
 		//Loads map from data
-		LoadMap (filePath);
+		LoadMap ();
 	}
 
 	// Use this for initialization
 	void Start () {
-		roomBHVMap = new RoomBHV[Map.SIZE, Map.SIZE];
-		for (int x = 0; x < Map.SIZE; x++){
-			for (int y = 0; y < Map.SIZE; y++) {
+		roomBHVMap = new RoomBHV[Map.sizeX, Map.sizeY];
+		for (int x = 0; x < Map.sizeX; x++){
+			for (int y = 0; y < Map.sizeY; y++) {
 				roomBHVMap [x, y] = null;
 			}
 		}
@@ -45,8 +47,8 @@ public class GameManager : MonoBehaviour {
 //				Debug.Log (map.rooms [x, y]);
 //			}
 //		}
-		for (int y = 0; y < Map.SIZE; y+=2){
-			for (int x = 0; x < Map.SIZE; x+=2){
+		for (int y = 0; y < Map.sizeY; y+=2){
+			for (int x = 0; x < Map.sizeX; x+=2){
 				InstantiateRoom (x, y);
 			}
 		}
@@ -57,8 +59,12 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-	void LoadMap(string filepath){
-		map = new Map (filepath);
+	void LoadMap(){
+		if (readRooms){ //deve ler também os tiles das salas?
+			map = new Map (mapFilePath, roomsFilePath);
+		} else { //apenas as salas, sem tiles
+			map = new Map (mapFilePath);
+		}
 	}
 
 	public Map GetMap(){
@@ -90,13 +96,13 @@ public class GameManager : MonoBehaviour {
 				roomBHVMap [x, y-2].doorSouth.SetDestination (roomBHVMap [x, y].doorNorth);
 			}
 		}
-		if (x < Map.SIZE){ // east
+		if (x < Map.sizeX){ // east
 			if (map.rooms[x+1, y] != null){
 				//Sets door
 				newRoom.eastDoor = map.rooms [x + 1, y].lockID;
 			}
 		}
-		if (y < Map.SIZE){ // south
+		if (y < Map.sizeY){ // south
 			if (map.rooms[x, y+1] != null){
 				//Sets door
 				newRoom.southDoor = map.rooms [x, y + 1].lockID;

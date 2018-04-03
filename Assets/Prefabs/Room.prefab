@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4414742417240294}
   - component: {fileID: 61203995201430082}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: ColliderWest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4575418308165454}
   - component: {fileID: 61780886207372558}
   m_Layer: 0
-  m_Name: Collider (3)
+  m_Name: ColliderSouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 4237344187619836}
   - component: {fileID: 61238966288715422}
   m_Layer: 0
-  m_Name: Collider (2)
+  m_Name: ColliderNorth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 4529366669167700}
   - component: {fileID: 61785919300248960}
   m_Layer: 0
-  m_Name: Collider (1)
+  m_Name: ColliderEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,7 +345,7 @@ Transform:
   m_GameObject: {fileID: 1672164670514478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16, y: 9, z: 1}
+  m_LocalScale: {x: 13, y: 13, z: 1}
   m_Children: []
   m_Father: {fileID: 4940874383094844}
   m_RootOrder: 0
@@ -357,7 +357,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1963288452537166}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4746393963922378}
@@ -370,7 +370,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1246085064750406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4874479203035034}
@@ -409,7 +409,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487889401998020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4484108621185552}
@@ -534,7 +534,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646359340470920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4052954635864504}
@@ -739,14 +739,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!61 &61203995201430082
 BoxCollider2D:
@@ -814,14 +814,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!61 &61651499026600538
 BoxCollider2D:
@@ -839,14 +839,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!61 &61780886207372558
 BoxCollider2D:
@@ -914,14 +914,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!102 &102134374485331176
 TextMesh:
@@ -1021,8 +1021,6 @@ MonoBehaviour:
   keyID: 0
   text: {fileID: 102139870016209764}
   teleportTransform: {fileID: 4757452092410706}
-  moveX: 0
-  moveY: 1
   destination: {fileID: 0}
 --- !u!114 &114081829205008226
 MonoBehaviour:
@@ -1038,8 +1036,6 @@ MonoBehaviour:
   keyID: 0
   text: {fileID: 102685058678053616}
   teleportTransform: {fileID: 4317141115486034}
-  moveX: 0
-  moveY: -1
   destination: {fileID: 0}
 --- !u!114 &114123737783067614
 MonoBehaviour:
@@ -1055,8 +1051,6 @@ MonoBehaviour:
   keyID: 0
   text: {fileID: 102134374485331176}
   teleportTransform: {fileID: 4178795282519426}
-  moveX: 1
-  moveY: 0
   destination: {fileID: 0}
 --- !u!114 &114406600773019966
 MonoBehaviour:
@@ -1072,8 +1066,6 @@ MonoBehaviour:
   keyID: 0
   text: {fileID: 102669785683154576}
   teleportTransform: {fileID: 4191061800590270}
-  moveX: -1
-  moveY: 0
   destination: {fileID: 0}
 --- !u!114 &114939094486873598
 MonoBehaviour:
@@ -1100,6 +1092,12 @@ MonoBehaviour:
   doorEast: {fileID: 114123737783067614}
   doorWest: {fileID: 114406600773019966}
   keyPrefab: {fileID: 114071332633170896, guid: ced0218549bee9d46b47102a1253d89a,
+    type: 2}
+  colNorth: {fileID: 61238966288715422}
+  colSouth: {fileID: 61780886207372558}
+  colEast: {fileID: 61785919300248960}
+  colWest: {fileID: 61203995201430082}
+  tilePrefab: {fileID: 114907442841161738, guid: feffe1557fc7aea409b7c9306bbda128,
     type: 2}
 --- !u!212 &212106245402670850
 SpriteRenderer:
@@ -1134,9 +1132,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 99a22598ed0eefb4eb71a5b556c2b3a6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.141}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
