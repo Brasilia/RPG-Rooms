@@ -82,7 +82,7 @@ public class RoomBHV : MonoBehaviour {
 				int tileID = thisRoom.tiles [ix, iy];
 				TileBHV tileObj = Instantiate (tilePrefab);
 				tileObj.transform.SetParent (transform);
-				tileObj.transform.localPosition = new Vector2 (ix - centerX, iy - centerY);
+				tileObj.transform.localPosition = new Vector2 (ix - centerX, Room.sizeY -1 - iy - centerY);
 				Color c; //FIXME provisório para diferenciar sprites
 				if (tileID != 1){ //é passável
 					tileObj.GetComponent<Collider2D> ().enabled = false; //desativa colisor
