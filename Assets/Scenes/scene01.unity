@@ -270,7 +270,9 @@ MonoBehaviour:
   roomsParent: {fileID: 1823258550}
   roomSpacingX: 7
   roomSpacingY: 7
-  filePath: Assets/Data/map.txt
+  mapFilePath: Assets/Data/map.txt
+  roomsFilePath: Assets/Data/rooms.txt
+  readRooms: 1
 --- !u!4 &674382987
 Transform:
   m_ObjectHideFlags: 0

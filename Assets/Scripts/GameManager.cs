@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		InstantiateRooms ();
-		//Starts player to an initial position
-		Player.instance.transform.position = roomBHVMap [map.startX, map.startY].transform.position;
 		Player.instance.SetPosition (map.startX, map.startY);
 	}
 

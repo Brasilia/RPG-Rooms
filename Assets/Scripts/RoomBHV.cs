@@ -91,7 +91,6 @@ public class RoomBHV : MonoBehaviour {
 					c = Color.black;
 				}
 				tileObj.GetComponent<SpriteRenderer> ().color = c; //FIXME provisório para diferenciar sprites
-
 			}
 		}
 	}
