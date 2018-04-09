@@ -1,11 +1,23 @@
 fileFormatVersion: 2
 guid: 36c18cfa295775b4cb5fe784d288f6c2
-timeCreated: 1516842408
+timeCreated: 1523255650
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - doorNorth: {instanceID: 0}
+  - doorSouth: {instanceID: 0}
+  - doorEast: {instanceID: 0}
+  - doorWest: {instanceID: 0}
+  - keyPrefab: {instanceID: 0}
+  - colNorth: {instanceID: 0}
+  - colSouth: {instanceID: 0}
+  - colEast: {instanceID: 0}
+  - colWest: {instanceID: 0}
+  - tilePrefab: {fileID: 114907442841161738, guid: feffe1557fc7aea409b7c9306bbda128,
+      type: 2}
+  - blockPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

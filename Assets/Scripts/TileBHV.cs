@@ -10,9 +10,7 @@ public class TileBHV : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (id == 1){ // obstáculo
-			GetComponent<Collider2D> ().enabled = true; // ativa o colisor
-		}
+
 	}
 	
 	// Update is called once per frame

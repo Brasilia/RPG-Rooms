@@ -601,15 +601,15 @@ PlayerSettings:
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
     Build: 0
-    Collab: 1
+    Collab: 0
     ErrorHub: 0
     Hub: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 4c42366a-23a4-4ed0-bbab-b47ed38c4bf8
-  projectName: RPG Rooms
-  organizationId: rafael-3168877
+  cloudProjectId: fc0f1496-3bd0-479d-93fb-cc3d319dec1a
+  projectName: RPG Rooms (1)
+  organizationId: leonardo-2447458
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

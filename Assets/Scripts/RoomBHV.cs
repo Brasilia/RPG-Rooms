@@ -27,9 +27,10 @@ public class RoomBHV : MonoBehaviour {
 	public Collider2D colWest;
 
 	public TileBHV tilePrefab;
+    public BlockBHV blockPrefab;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		SetLayout ();
 		if (availableKeyID > 0){ // existe uma chave
 			// instancia chave
@@ -80,17 +81,14 @@ public class RoomBHV : MonoBehaviour {
 		for (int ix = 0; ix < Room.sizeX; ix++){
 			for (int iy = 0; iy < Room.sizeY; iy++){
 				int tileID = thisRoom.tiles [ix, iy];
-				TileBHV tileObj = Instantiate (tilePrefab);
+                TileBHV tileObj;
+                if (tileID == 1)
+                    tileObj = Instantiate(blockPrefab);
+                else
+                    tileObj = Instantiate(tilePrefab);
 				tileObj.transform.SetParent (transform);
 				tileObj.transform.localPosition = new Vector2 (ix - centerX, Room.sizeY -1 - iy - centerY);
-				Color c; //FIXME provisório para diferenciar sprites
-				if (tileID != 1){ //é passável
-					tileObj.GetComponent<Collider2D> ().enabled = false; //desativa colisor
-					c = new Color (0.2f, 0.2f + 0.1f * tileID, 0.2f); //FIXME provisório para diferenciar sprites
-				} else {
-					c = Color.black;
-				}
-				tileObj.GetComponent<SpriteRenderer> ().color = c; //FIXME provisório para diferenciar sprites
+				tileObj.GetComponent<SpriteRenderer> (); //FIXME provisório para diferenciar sprites
 			}
 		}
 	}
