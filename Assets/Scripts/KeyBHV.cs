@@ -5,12 +5,13 @@ using UnityEngine;
 public class KeyBHV : MonoBehaviour {
 
 	public int keyID;
-	public TextMesh text;
 
 	// Use this for initialization
 	void Start () {
-		text.text = keyID.ToString();
-	}
+        //Render the key sprite with the color relative to its ID
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.color = Util.colorId[keyID - 1];
+    }
 	
 	// Update is called once per frame
 	void Update () {

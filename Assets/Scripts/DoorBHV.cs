@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorBHV : MonoBehaviour {
 
 	public int keyID;
-	public TextMesh text;
+	public Sprite lockedSprite;
 	public Transform teleportTransform;
 //	public int moveX;
 //	public int moveY;
@@ -17,9 +17,11 @@ public class DoorBHV : MonoBehaviour {
 		if (keyID < 0){
 			Destroy (gameObject);
 		} else if (keyID > 0){
-			text.text = keyID.ToString ();
-		} else {
-			text.text = "";
+            //Render the locked door sprite with the color relative to its ID
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.sprite = lockedSprite;
+            sr.color = Util.colorId[keyID-1];
+            //text.text = keyID.ToString ();
 		}
 	}
 	
