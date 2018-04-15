@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyBHV : MonoBehaviour {
+public class KeyBHV : PlaceableRoomObject {
 
 	public int keyID;
 

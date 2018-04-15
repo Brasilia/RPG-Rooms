@@ -35,7 +35,7 @@ public class DoorBHV : MonoBehaviour {
 			if (Player.instance.keys.Contains(keyID) || keyID == 0){
 				Player.instance.transform.position = destination.teleportTransform.position;
 				RoomBHV parent = destination.transform.parent.GetComponent<RoomBHV> ();
-				Player.instance.SetPosition (parent.x, parent.y);
+				Player.instance.AdjustCamera (parent.x, parent.y);
 			}
 		}
 	}

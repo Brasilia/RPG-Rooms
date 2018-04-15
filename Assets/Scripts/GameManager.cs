@@ -36,15 +36,11 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		InstantiateRooms ();
-		Player.instance.SetPosition (map.startX, map.startY);
+		Player.instance.AdjustCamera (map.startX, map.startY);
+		Player.instance.SetRoom (map.startX, map.startY);
 	}
 
 	void InstantiateRooms(){
-//		for (int y = 0; y < Map.SIZE; y++){
-//			for (int x = 0; x < Map.SIZE; x++){
-//				Debug.Log (map.rooms [x, y]);
-//			}
-//		}
 		for (int y = 0; y < Map.sizeY; y+=2){
 			for (int x = 0; x < Map.sizeX; x+=2){
 				InstantiateRoom (x, y);

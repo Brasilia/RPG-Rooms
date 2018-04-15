@@ -36,6 +36,8 @@ public class RoomBHV : MonoBehaviour {
 			// instancia chave
 			KeyBHV key = Instantiate(keyPrefab, transform);
 			key.keyID = availableKeyID;
+			Debug.Log ("KeyID: " + key.keyID);
+			key.SetRoom (x, y);
 		}
 		if (isStart){
 			//Algum efeito
@@ -89,6 +91,9 @@ public class RoomBHV : MonoBehaviour {
 				tileObj.transform.SetParent (transform);
 				tileObj.transform.localPosition = new Vector2 (ix - centerX, Room.sizeY -1 - iy - centerY);
 				tileObj.GetComponent<SpriteRenderer> (); //FIXME provisório para diferenciar sprites
+				tileObj.id = tileID;
+				tileObj.x = ix;
+				tileObj.y = iy;
 			}
 		}
 	}

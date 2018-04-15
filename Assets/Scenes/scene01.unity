@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 114939094486873598, guid: f779d5e8c005367469c5cc56a485f102,
     type: 2}
-  roomsParent: {fileID: 0}
+  roomsParent: {fileID: 1823258550}
   roomSpacingX: 7
   roomSpacingY: 7
   mapFilePath: Assets/Data/map.txt
@@ -320,8 +320,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 99a22598ed0eefb4eb71a5b556c2b3a6, type: 3}
-  m_Color: {r: 0.0063797636, g: 0.23926286, b: 0.43382353, a: 1}
+  m_Sprite: {fileID: 21300022, guid: 6efdd97f7a1366644b61a761fb240e35, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
