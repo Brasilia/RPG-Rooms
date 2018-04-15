@@ -78,6 +78,12 @@ public class RoomBHV : MonoBehaviour {
 		colEast.GetComponent<BoxCollider2D> ().size = new Vector2 (1, Room.sizeY + 2);
 		colWest.GetComponent<BoxCollider2D> ().size = new Vector2 (1, Room.sizeY + 2);
 
+		//Ajusta sprites das paredes
+		colNorth.gameObject.GetComponent<SpriteRenderer>().size = new Vector2(Room.sizeX + 2, 1);
+		colSouth.gameObject.GetComponent<SpriteRenderer>().size = new Vector2(Room.sizeX + 2, 1);
+		colEast.gameObject.GetComponent<SpriteRenderer>().size = new Vector2 (1, Room.sizeY + 2);
+		colWest.gameObject.GetComponent<SpriteRenderer>().size = new Vector2 (1, Room.sizeY + 2);
+
 		//Posiciona os tiles
 		Room thisRoom = GameManager.instance.GetMap().rooms[x, y]; //TODO fazer de forma similar para tirar construção de salas do GameManager
 		for (int ix = 0; ix < Room.sizeX; ix++){

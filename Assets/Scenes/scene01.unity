@@ -164,7 +164,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -222,8 +222,8 @@ MonoBehaviour:
   roomPrefab: {fileID: 114939094486873598, guid: f779d5e8c005367469c5cc56a485f102,
     type: 2}
   roomsParent: {fileID: 1823258550}
-  roomSpacingX: 7
-  roomSpacingY: 7
+  roomSpacingX: 10
+  roomSpacingY: 10
   mapFilePath: Assets/Data/map.txt
   roomsFilePath: Assets/Data/rooms.txt
   readRooms: 1
