@@ -35,6 +35,15 @@ public class DoorBHV : MonoBehaviour {
 			if (Player.instance.keys.Contains(keyID) || keyID == 0){
 				Player.instance.transform.position = destination.teleportTransform.position;
 				RoomBHV parent = destination.transform.parent.GetComponent<RoomBHV> ();
+                if(Player.instance.keys.Contains(keyID) && !Player.instance.usedKeys.Contains(keyID))
+                {
+                    Player.instance.usedKeys.Add(keyID);
+                    //TODO: Add some analytics to flag when the player openned the lock
+                }
+                if(parent.isEnd)
+                {
+                    GameManager.state = GameManager.LevelPlayState.Won;
+                }
 				Player.instance.AdjustCamera (parent.x, parent.y);
 			}
 		}

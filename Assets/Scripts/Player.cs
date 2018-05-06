@@ -6,6 +6,7 @@ public class Player : PlaceableRoomObject {
 
 	public static Player instance = null;
 	public List<int> keys = new List<int>();
+    public List<int> usedKeys = new List<int>();
 	public int x { private set;  get;}
 	public int y { private set;  get;}
 	public Camera cam;

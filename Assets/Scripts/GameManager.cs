@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class GameManager : MonoBehaviour {
 
@@ -15,7 +16,11 @@ public class GameManager : MonoBehaviour {
 	public string roomsFilePath = "Assets/Data/rooms.txt";
 	public bool readRooms = true;
 
-	void Awake(){
+    public enum LevelPlayState { InProgress, Won, Lost, Skip, Quit }
+    public static LevelPlayState state = LevelPlayState.InProgress;
+    private static float secondsElapsed = 0;
+
+    void Awake(){
 		//Singleton
 		if (instance == null){
 			instance = this;
@@ -23,8 +28,10 @@ public class GameManager : MonoBehaviour {
 			Destroy (gameObject);
 		}
 		DontDestroyOnLoad (gameObject);
-		//Loads map from data
-		LoadMap ();
+        AnalyticsEvent.GameStart();
+        AnalyticsEvent.LevelStart("0");
+        //Loads map from data
+        LoadMap ();
 	}
 
 	// Use this for initialization
@@ -37,10 +44,11 @@ public class GameManager : MonoBehaviour {
 		}
 		InstantiateRooms ();
 		Player.instance.AdjustCamera (map.startX, map.startY);
-		Player.instance.SetRoom (map.startX, map.startY);
-	}
+        Player.instance.SetRoom(map.startX, map.startY);
+        
+}
 
-	void InstantiateRooms(){
+    void InstantiateRooms(){
 		for (int y = 0; y < Map.sizeY; y+=2){
 			for (int x = 0; x < Map.sizeX; x+=2){
 				InstantiateRoom (x, y);
@@ -50,8 +58,8 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        secondsElapsed += Time.deltaTime;
+    }
 
 	void LoadMap(){
 		if (readRooms){ //deve ler também os tiles das salas?
@@ -115,4 +123,39 @@ public class GameManager : MonoBehaviour {
 		newRoom.gameObject.transform.position = new Vector2 (roomSpacingX * x, -roomSpacingY * y);
 	}
 
+    void OnApplicationQuit()
+    {
+        AnalyticsEvent.GameOver();
+    }
+
+    public void SetLevelPlayState(LevelPlayState newState)
+    {
+        state = newState;
+    }
+
+    void OnDestroy()
+    {
+        Dictionary<string, object> customParams = new Dictionary<string, object>();
+        customParams.Add("seconds_played", secondsElapsed);
+        customParams.Add("keys", Player.instance.keys.Count);
+        customParams.Add("locks", Player.instance.usedKeys.Count);
+
+        switch (state)
+        {
+            case LevelPlayState.Won:
+                AnalyticsEvent.LevelComplete("0", customParams);
+                break;
+            case LevelPlayState.Lost:
+                AnalyticsEvent.LevelFail("0", customParams);
+                break;
+            case LevelPlayState.Skip:
+                AnalyticsEvent.LevelSkip("0", customParams);
+                break;
+            case LevelPlayState.InProgress:
+            case LevelPlayState.Quit:
+            default:
+                AnalyticsEvent.LevelQuit("0", customParams);
+                break;
+        }
+    }
 }
