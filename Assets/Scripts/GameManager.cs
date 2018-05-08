@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -12,9 +13,15 @@ public class GameManager : MonoBehaviour {
 	public RoomBHV[,] roomBHVMap; //2D array for easy room indexing
 	public float roomSpacingX = 10.5f; //Spacing between rooms: X
 	public float roomSpacingY = 6f; //Spacing between rooms: Y
-	public string mapFilePath = "Assets/Data/map.txt"; //Path to load map data from
-	public string roomsFilePath = "Assets/Data/rooms.txt";
+    private string mapDirectory = "Assets/Data/Batch";
+    private static string[] maps = null;
+    private static string[] rooms = null;
+    private int currentMapId = 0;
+    private int currentTestBatchId = 0;
+	//public string mapFilePath = "Assets/Data/map.txt"; //Path to load map data from
+	//public string roomsFilePath = "Assets/Data/rooms.txt";
 	public bool readRooms = true;
+    public GameObject formMenu;
 
     public enum LevelPlayState { InProgress, Won, Lost, Skip, Quit }
     public static LevelPlayState state = LevelPlayState.InProgress;
@@ -29,13 +36,36 @@ public class GameManager : MonoBehaviour {
 		}
 		DontDestroyOnLoad (gameObject);
         AnalyticsEvent.GameStart();
-        AnalyticsEvent.LevelStart("0");
-        //Loads map from data
-        LoadMap ();
+        if (Directory.Exists(mapDirectory))
+        {
+            Debug.Log(mapDirectory + currentTestBatchId);
+            // This path is a directory
+            ProcessDirectory(mapDirectory+currentTestBatchId, "map*", ref maps);
+            ProcessDirectory(mapDirectory+currentTestBatchId, "room*", ref rooms);
+        }
+        if (maps != null)
+        {
+            AnalyticsEvent.LevelStart(currentMapId);
+            //Loads map from data
+            LoadMap(currentMapId);
+        }
+        else
+        {
+            Debug.Log("Something is wrong with the map directory!");
+        }
+        
 	}
 
-	// Use this for initialization
-	void Start () {
+    // Process all files in the directory passed in, recurse on any directories 
+    // that are found, and process the files they contain.
+    public static void ProcessDirectory(string targetDirectory, string search, ref string[] files)
+    {
+        // Process the list of files found in the directory.
+        files = Directory.GetFiles(targetDirectory, search);
+    }
+
+    // Use this for initialization
+    void Start () {
 		roomBHVMap = new RoomBHV[Map.sizeX, Map.sizeY];
 		for (int x = 0; x < Map.sizeX; x++){
 			for (int y = 0; y < Map.sizeY; y++) {
@@ -46,7 +76,7 @@ public class GameManager : MonoBehaviour {
 		Player.instance.AdjustCamera (map.startX, map.startY);
         Player.instance.SetRoom(map.startX, map.startY);
         
-}
+    }
 
     void InstantiateRooms(){
 		for (int y = 0; y < Map.sizeY; y+=2){
@@ -61,11 +91,11 @@ public class GameManager : MonoBehaviour {
         secondsElapsed += Time.deltaTime;
     }
 
-	void LoadMap(){
+	void LoadMap(int mapId){
 		if (readRooms){ //deve ler também os tiles das salas?
-			map = new Map (mapFilePath, roomsFilePath);
+			map = new Map (maps[mapId], rooms[mapId]);
 		} else { //apenas as salas, sem tiles
-			map = new Map (mapFilePath);
+			map = new Map (maps[mapId]);
 		}
 	}
 
@@ -133,6 +163,21 @@ public class GameManager : MonoBehaviour {
         state = newState;
     }
 
+    public void LevelComplete()
+    {
+        //TODO save every gameplay data
+        //TODO make it load a new level
+        if(currentMapId < (maps.Length - 1))
+        {
+            currentMapId++;
+        }
+        else
+        {
+            LoadForm();
+        }
+
+    }
+
     void OnDestroy()
     {
         Dictionary<string, object> customParams = new Dictionary<string, object>();
@@ -157,5 +202,47 @@ public class GameManager : MonoBehaviour {
                 AnalyticsEvent.LevelQuit("0", customParams);
                 break;
         }
+    }
+    public void LoadForm()
+    {
+        //Open a GUI here
+        formMenu.SetActive(true);
+        //TODO: Should check if there is a new batch, if not, set as inactive the continue button.
+    }
+    //Load a new batch of levels, if it exists
+    public void LoadNewBatch()
+    {
+        currentTestBatchId++;
+        currentMapId = 0;
+        //TODO: add directory;
+        mapDirectory = "newdirectory";
+        if (Directory.Exists(mapDirectory))
+        {
+            // This path is a directory
+            ProcessDirectory(mapDirectory+currentTestBatchId, "map*", ref maps);
+            ProcessDirectory(mapDirectory+currentTestBatchId, "room*", ref rooms);
+        }
+        if (maps != null)
+        {
+            AnalyticsEvent.LevelStart(currentMapId);
+            //Loads map from data
+            LoadMap(currentMapId);
+        }
+        else
+        {
+            Debug.Log("Something is wrong with the map directory!");
+        }
+        //TODO test if this will work. Maybe a reload of the scene will be necessary
+        roomBHVMap = new RoomBHV[Map.sizeX, Map.sizeY];
+        for (int x = 0; x < Map.sizeX; x++)
+        {
+            for (int y = 0; y < Map.sizeY; y++)
+            {
+                roomBHVMap[x, y] = null;
+            }
+        }
+        InstantiateRooms();
+        Player.instance.AdjustCamera(map.startX, map.startY);
+        Player.instance.SetRoom(map.startX, map.startY);
     }
 }

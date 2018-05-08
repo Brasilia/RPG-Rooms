@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DoorBHV : MonoBehaviour {
 
+    public GameManager gm = GameManager.instance;
 	public int keyID;
 	public Sprite lockedSprite;
 	public Transform teleportTransform;
@@ -43,6 +44,8 @@ public class DoorBHV : MonoBehaviour {
                 if(parent.isEnd)
                 {
                     GameManager.state = GameManager.LevelPlayState.Won;
+                    //TODO change this to when the sierpinsk-force is taken
+                    gm.LevelComplete();
                 }
 				Player.instance.AdjustCamera (parent.x, parent.y);
 			}
