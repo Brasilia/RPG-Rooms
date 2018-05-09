@@ -18,13 +18,14 @@ public class Player : PlaceableRoomObject {
 			Destroy (gameObject);
 		}
 		DontDestroyOnLoad (gameObject);
-	}
+        
+    }
 
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        cam = Camera.main;
+    }
 	
 	// Update is called once per frame
 	void Update () {
