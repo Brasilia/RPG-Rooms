@@ -42,14 +42,14 @@ public class DoorBHV : MonoBehaviour {
                     Player.instance.usedKeys.Add(keyID);
                     //TODO: Add some analytics to flag when the player openned the lock
                 }
-                //if(parent.isEnd)
-                //{
-                    Debug.Log("THe end");
+                if(parent.isEnd)
+                {
+                    Debug.Log("The end");
                     GameManager.state = GameManager.LevelPlayState.Won;
                     //TODO change this to when the sierpinsk-force is taken
                     gm.LevelComplete();
                     return;
-                //}
+                }
 				Player.instance.AdjustCamera (parent.x, parent.y);
 			}
 		}
