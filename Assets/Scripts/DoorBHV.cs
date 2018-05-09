@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoorBHV : MonoBehaviour {
 
-    public GameManager gm;
+    //public GameManager gm;
 	public int keyID;
 	public Sprite lockedSprite;
 	public Transform teleportTransform;
@@ -24,7 +24,7 @@ public class DoorBHV : MonoBehaviour {
             sr.color = Util.colorId[keyID-1];
             //text.text = keyID.ToString ();
 		}
-        gm = GameManager.instance;
+        //gm = GameManager.instance;
     }
 	
 	// Update is called once per frame
@@ -42,14 +42,14 @@ public class DoorBHV : MonoBehaviour {
                     Player.instance.usedKeys.Add(keyID);
                     //TODO: Add some analytics to flag when the player openned the lock
                 }
-                if(parent.isEnd)
+                /*if(parent.isEnd)
                 {
                     Debug.Log("The end");
                     GameManager.state = GameManager.LevelPlayState.Won;
                     //TODO change this to when the sierpinsk-force is taken
                     gm.LevelComplete();
                     return;
-                }
+                }*/
 				Player.instance.AdjustCamera (parent.x, parent.y);
 			}
 		}

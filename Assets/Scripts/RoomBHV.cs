@@ -20,8 +20,9 @@ public class RoomBHV : MonoBehaviour {
 	public DoorBHV doorWest;
 
 	public KeyBHV keyPrefab;
+    public TriforceBHV triPrefab;
 
-	public Collider2D colNorth;
+    public Collider2D colNorth;
 	public Collider2D colSouth;
 	public Collider2D colEast;
 	public Collider2D colWest;
@@ -44,8 +45,10 @@ public class RoomBHV : MonoBehaviour {
 			transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.green;
 		}
 		if (isEnd){
-			//Algum efeito
-			transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
+            TriforceBHV tri = Instantiate(triPrefab, transform);
+            tri.SetRoom(x, y);
+            //Algum efeito
+            transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
 		}
 	}
 	

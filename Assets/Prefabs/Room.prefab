@@ -753,6 +753,8 @@ MonoBehaviour:
   doorWest: {fileID: 114406600773019966}
   keyPrefab: {fileID: 114071332633170896, guid: ced0218549bee9d46b47102a1253d89a,
     type: 2}
+  triPrefab: {fileID: 114081354997558450, guid: 5d0b89090a7988a40b83856f0ca97fd9,
+    type: 2}
   colNorth: {fileID: 61238966288715422}
   colSouth: {fileID: 61780886207372558}
   colEast: {fileID: 61785919300248960}
