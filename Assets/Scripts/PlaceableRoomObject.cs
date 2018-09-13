@@ -17,7 +17,7 @@ public class PlaceableRoomObject : MonoBehaviour {
 	public void SetRoom(int x, int y){
 		GameManager gm = GameManager.instance;
 		Transform roomTransf = gm.roomBHVMap [x, y].transform;
-		Vector2 roomSelfCenter = new Vector2 (Room.sizeX/2 - 0.5f, Room.sizeY/2 - 0.5f);
+		Vector2 roomSelfCenter = new Vector2 (Room.sizeX/2.0f - 0.5f, Room.sizeY/2.0f - 0.5f);
 
 		Room room = gm.GetMap ().rooms [x, y];
 		float minSqDist = Mathf.Infinity;

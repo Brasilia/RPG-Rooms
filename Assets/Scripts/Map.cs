@@ -74,8 +74,9 @@ public class Map {
 			Debug.Log ("roomX " + roomX + "   roomY " + roomY + "   Line: " + txtLine);
 			rooms [roomX, roomY].InitializeTiles (); // aloca memória para os tiles
 			for (int x = 0; x < Room.sizeX; x++){
-				for (int y = 0; y < Room.sizeY; y++){
-					rooms [roomX, roomY].tiles [y, x] = int.Parse( streamReaderRoom.ReadLine () ); // FIXME Desinverter x e y: foi feito assim pois o arquivo de entrada foi passado em um formato invertido
+                for (int y = 0; y < Room.sizeY; y++)
+                {
+                    rooms[roomX, roomY].tiles [x, y] = int.Parse( streamReaderRoom.ReadLine () ); // FIXME Desinverter x e y: foi feito assim pois o arquivo de entrada foi passado em um formato invertido
 					txtLine++;
 				}
 			}

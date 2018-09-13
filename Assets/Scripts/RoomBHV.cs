@@ -62,8 +62,8 @@ public class RoomBHV : MonoBehaviour {
 		doorSouth.keyID = southDoor;
 		doorEast.keyID = eastDoor;
 		doorWest.keyID = westDoor;
-		float centerX = Room.sizeX / 2 - 0.5f;
-		float centerY = Room.sizeY / 2 - 0.5f;
+		float centerX = Room.sizeX / 2.0f - 0.5f;
+		float centerY = Room.sizeY / 2.0f - 0.5f;
 		const float delta = 0.0f; //para que os colisores das portas e das paredes não se sobreponham completamente
 		//Posiciona as portas - são somados/subtraídos 1 para que as portas e colisores estejam periféricos à sala
 		doorNorth.transform.localPosition = new Vector2 (0.0f, centerY + 1 - delta);
