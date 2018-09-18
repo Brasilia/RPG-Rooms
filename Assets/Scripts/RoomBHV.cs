@@ -54,7 +54,7 @@ public class RoomBHV : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
 	}
 
 	void SetLayout(){

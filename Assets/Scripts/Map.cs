@@ -12,12 +12,19 @@ public class Map {
 	public int startX, startY;
 	public int endX, endY;
 
+    // Valores para gerar salas sem o arquivo de definição interna
+    public static int defaultRoomSizeX = 12;
+    public static int defaultRoomSizeY = 7;
+    public static int defaultTileID = 2;
+
 	public Map(string filepath, string roomsFilePath = null){
 		ReadMapFile (filepath); // lê o mapa global
 		if (roomsFilePath != null){ // dá a opção de gerar o mapa com ou sem os tiles
 			ReadRoomsFile (roomsFilePath); // lê cada sala, com seus tiles
 			Room.tiled = true; // o arquivo de tiles das salas foi lido; função de tiles ativada
-		}
+		} else { // sala vazia padrão
+            BuildDefaultRooms();
+        }
 	}
 
 	private void ReadMapFile(string filepath){
@@ -83,4 +90,27 @@ public class Map {
 		}
 		Debug.Log ("Rooms read.");
 	}
+
+    //Cria salas vazias no tamanho padrão
+    private void BuildDefaultRooms ()
+    {
+        Room.sizeX = defaultRoomSizeX;
+        Room.sizeY = defaultRoomSizeY;
+        for (int roomX = 0; roomX < sizeX; roomX+=2)
+        {
+            for (int roomY = 0; roomY < sizeY; roomY+=2)
+            {
+                if (rooms[roomX, roomY] == null)
+                    continue;
+                rooms[roomX, roomY].InitializeTiles(); // aloca memória para os tiles
+                for (int x = 0; x < Room.sizeX; x++)
+                {
+                    for (int y = 0; y < Room.sizeY; y++)
+                    {
+                        rooms[roomX, roomY].tiles[x, y] = defaultTileID; // FIXME Desinverter x e y: foi feito assim pois o arquivo de entrada foi passado em um formato invertido
+                    }
+                }
+            }
+        }
+    }
 }
