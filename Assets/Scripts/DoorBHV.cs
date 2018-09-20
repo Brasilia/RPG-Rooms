@@ -14,6 +14,12 @@ public class DoorBHV : MonoBehaviour
     //	public int moveY;
     [SerializeField]
     private DoorBHV destination;
+    private RoomBHV parentRoom;
+
+    private void Awake()
+    {
+        parentRoom = transform.parent.GetComponent<RoomBHV>();
+    }
 
     // Use this for initialization
     void Start()
@@ -43,30 +49,22 @@ public class DoorBHV : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (keyID == 0)
+            if (keyID == 0 || isOpen)
             {
-                Player.instance.transform.position = destination.teleportTransform.position;
-                RoomBHV parent = destination.transform.parent.GetComponent<RoomBHV>();
-                Player.instance.AdjustCamera(parent.x, parent.y);
+                MovePlayerToNextRoom();
             }
-            else if (isOpen)
+            else if (Player.instance.keys.Contains(keyID))
             {
-                Player.instance.transform.position = destination.teleportTransform.position;
-                RoomBHV parent = destination.transform.parent.GetComponent<RoomBHV>();
-                Player.instance.AdjustCamera(parent.x, parent.y);
-
-                //TODO: Add some analytics to flag when the player openned the lock
-            }
-            else if (Player.instance.keys.Contains(keyID) && (Player.instance.usedKeys.Count < Player.instance.keys.Count))
-            {
+                Player.instance.keys.Remove(keyID);
                 Player.instance.usedKeys.Add(keyID);
                 isOpen = true;
-
-                Player.instance.transform.position = destination.teleportTransform.position;
-                RoomBHV parent = destination.transform.parent.GetComponent<RoomBHV>();
                 destination.isOpen = true;
-
-                Player.instance.AdjustCamera(parent.x, parent.y);
+                OnKeyUsed(keyID);
+                MovePlayerToNextRoom();
+            } else
+            {
+                OnRoomFailExit();
+                OnRoomFailEnter();
             }
             /*if(parent.isEnd)
             {
@@ -79,8 +77,43 @@ public class DoorBHV : MonoBehaviour
         }
     }
 
+    private void MovePlayerToNextRoom ()
+    {
+        Player.instance.transform.position = destination.teleportTransform.position;
+        RoomBHV parent = destination.parentRoom;
+        Player.instance.AdjustCamera(parent.x, parent.y);
+        OnRoomExit();
+        OnRoomEnter();
+    }
+
     public void SetDestination(DoorBHV other)
     {
         destination = other;
+    }
+
+    //Methods to Player Profile
+    private void OnRoomFailEnter()
+    {
+        PlayerProfile.instance.OnRoomTryEnter(new Vector2Int(destination.parentRoom.x, destination.parentRoom.y));
+    }
+
+    private void OnRoomEnter()
+    {
+        PlayerProfile.instance.OnRoomEnter(new Vector2Int(destination.parentRoom.x, destination.parentRoom.y));
+    }
+
+    private void OnRoomFailExit()
+    {
+        PlayerProfile.instance.OnRoomTryExit(new Vector2Int(parentRoom.x, parentRoom.y));
+    }
+
+    private void OnRoomExit()
+    {
+        PlayerProfile.instance.OnRoomExit(new Vector2Int(parentRoom.x, parentRoom.y));
+    }
+
+    private void OnKeyUsed(int id)
+    {
+        PlayerProfile.instance.OnKeyUsed(id);
     }
 }
