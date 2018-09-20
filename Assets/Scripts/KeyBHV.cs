@@ -22,7 +22,13 @@ public class KeyBHV : PlaceableRoomObject {
 		if (other.tag == "Player"){
 			Player.instance.GetKey (keyID);
             //TODO: Analytics to flag when the player got a key
+            OnGetKey();
 			Destroy (gameObject);
 		}
 	}
+
+    private void OnGetKey ()
+    {
+        PlayerProfile.instance.OnGetKey(keyID);
+    }
 }

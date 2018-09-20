@@ -396,7 +396,7 @@ MonoBehaviour:
   roomsParent: {fileID: 1823258550}
   roomSpacingX: 10
   roomSpacingY: 10
-  readRooms: 0
+  readRooms: 1
   formMenu: {fileID: 1818305699}
 --- !u!4 &674382987
 Transform:

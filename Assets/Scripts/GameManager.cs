@@ -172,6 +172,12 @@ public class GameManager : MonoBehaviour {
         InstantiateRooms();
         Player.instance.AdjustCamera(map.startX, map.startY);
         Player.instance.SetRoom(map.startX, map.startY);
+        OnStartMap(currentMapId);
+    }
+
+    private void OnStartMap (int id)
+    {
+        PlayerProfile.instance.OnMapStart(id);
     }
 
     void OnApplicationQuit()

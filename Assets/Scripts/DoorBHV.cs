@@ -12,9 +12,15 @@ public class DoorBHV : MonoBehaviour {
 //	public int moveY;
 	[SerializeField]
 	private DoorBHV destination;
+    private RoomBHV parentRoom;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        parentRoom = transform.parent.GetComponent<RoomBHV>();
+    }
+
+    // Use this for initialization
+    void Start () {
 		if (keyID < 0){
 			Destroy (gameObject);
 		} else if (keyID > 0){
@@ -34,9 +40,9 @@ public class DoorBHV : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Player"){
-			if (Player.instance.keys.Contains(keyID) || keyID == 0){
+			if (Player.instance.keys.Contains(keyID) || keyID == 0){ //changes room
 				Player.instance.transform.position = destination.teleportTransform.position;
-				RoomBHV parent = destination.transform.parent.GetComponent<RoomBHV> ();
+				RoomBHV parent = destination.parentRoom;
                 if(Player.instance.keys.Contains(keyID) && !Player.instance.usedKeys.Contains(keyID))
                 {
                     Player.instance.usedKeys.Add(keyID);
@@ -51,6 +57,10 @@ public class DoorBHV : MonoBehaviour {
                     return;
                 }*/
 				Player.instance.AdjustCamera (parent.x, parent.y);
+                if (keyID != 0)
+                {
+                    OnKeyUsed(keyID);
+                }
 			}
 		}
 	}
@@ -58,4 +68,32 @@ public class DoorBHV : MonoBehaviour {
 	public void SetDestination(DoorBHV other){
 		destination = other;
 	}
+
+    //Methods to Player Profile
+    private void OnRoomTryEnter ()
+    {
+        PlayerProfile.instance.OnRoomTryEnter(new Vector2Int(destination.parentRoom.x, destination.parentRoom.y));
+    }
+
+    private void OnRoomEnter ()
+    {
+        PlayerProfile.instance.OnRoomEnter(new Vector2Int(destination.parentRoom.x, destination.parentRoom.y));
+    }
+
+    private void OnRoomTryExit ()
+    {
+        PlayerProfile.instance.OnRoomTryExit(new Vector2Int(parentRoom.x, parentRoom.y));
+    }
+
+    private void OnRoomExit ()
+    {
+        PlayerProfile.instance.OnRoomExit(new Vector2Int(parentRoom.x, parentRoom.y));
+    }
+
+    private void OnKeyUsed (int id)
+    {
+        PlayerProfile.instance.OnKeyUsed(id);
+    }
+
+
 }
