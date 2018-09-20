@@ -13,8 +13,8 @@ public class Map {
 	public int endX, endY;
 
     // Valores para gerar salas sem o arquivo de definição interna
-    public static int defaultRoomSizeX = 12;
-    public static int defaultRoomSizeY = 7;
+    public static int defaultRoomSizeX = 6;
+    public static int defaultRoomSizeY = 6;
     public static int defaultTileID = 2;
 
 	public Map(string filepath, string roomsFilePath = null){
