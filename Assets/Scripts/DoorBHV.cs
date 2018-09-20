@@ -94,7 +94,7 @@ public class DoorBHV : MonoBehaviour
     //Methods to Player Profile
     private void OnRoomFailEnter()
     {
-        PlayerProfile.instance.OnRoomTryEnter(new Vector2Int(destination.parentRoom.x, destination.parentRoom.y));
+        PlayerProfile.instance.OnRoomFailEnter(new Vector2Int(destination.parentRoom.x, destination.parentRoom.y));
     }
 
     private void OnRoomEnter()
@@ -104,7 +104,7 @@ public class DoorBHV : MonoBehaviour
 
     private void OnRoomFailExit()
     {
-        PlayerProfile.instance.OnRoomTryExit(new Vector2Int(parentRoom.x, parentRoom.y));
+        PlayerProfile.instance.OnRoomFailExit(new Vector2Int(parentRoom.x, parentRoom.y));
     }
 
     private void OnRoomExit()

@@ -178,6 +178,7 @@ public class GameManager : MonoBehaviour {
     private void OnStartMap (int id)
     {
         PlayerProfile.instance.OnMapStart(id);
+        PlayerProfile.instance.OnRoomEnter(new Vector2Int(map.startX, map.startY));
     }
 
     void OnApplicationQuit()
