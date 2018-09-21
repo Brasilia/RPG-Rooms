@@ -40,5 +40,6 @@ public class PlaceableRoomObject : MonoBehaviour {
 		}
 		Debug.Log ("Min Dist: " + minSqDist + "; MinX: " + minX + "; MinY: " + minY);
 		transform.position = new Vector2 (minX, Room.sizeY -1 - minY) - roomSelfCenter + (Vector2)roomTransf.position;
+        Debug.Log("New room position!");
 	}
 }
