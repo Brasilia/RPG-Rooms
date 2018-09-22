@@ -37,7 +37,7 @@ public class RoomBHV : MonoBehaviour {
 			// instancia chave
 			KeyBHV key = Instantiate(keyPrefab, transform);
 			key.keyID = availableKeyID;
-			Debug.Log ("KeyID: " + key.keyID);
+			//Debug.Log ("KeyID: " + key.keyID);
 			key.SetRoom (x, y);
 		}
 		if (isStart){

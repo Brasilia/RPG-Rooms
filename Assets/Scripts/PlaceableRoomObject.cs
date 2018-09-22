@@ -23,7 +23,7 @@ public class PlaceableRoomObject : MonoBehaviour {
 		float minSqDist = Mathf.Infinity;
 		int minX = 0; //será modificado
 		int minY = 0; //será modificado
-		Debug.Log("Center: " + roomSelfCenter.x + "," + roomSelfCenter.y);
+		//Debug.Log("Center: " + roomSelfCenter.x + "," + roomSelfCenter.y);
 		for (int ix = 0; ix < Room.sizeX; ix++){
 			for (int iy = 0; iy < Room.sizeY; iy++){
 				//Debug.Log ("Min Dist: " + minSqDist + "; MinX: " + minX + "; MinY: " + minY);
@@ -33,12 +33,12 @@ public class PlaceableRoomObject : MonoBehaviour {
 						minSqDist = sqDist;
 						minX = ix;
 						minY = iy;
-						Debug.Log ("NEW! Min Dist: " + minSqDist + "; MinX: " + minX + "; MinY: " + minY);
+						//Debug.Log ("NEW! Min Dist: " + minSqDist + "; MinX: " + minX + "; MinY: " + minY);
 					}
 				}
 			}
 		}
-		Debug.Log ("Min Dist: " + minSqDist + "; MinX: " + minX + "; MinY: " + minY);
+		//Debug.Log ("Min Dist: " + minSqDist + "; MinX: " + minX + "; MinY: " + minY);
 		transform.position = new Vector2 (minX, Room.sizeY -1 - minY) - roomSelfCenter + (Vector2)roomTransf.position;
 	}
 }

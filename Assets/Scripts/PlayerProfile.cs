@@ -10,16 +10,25 @@ public class PlayerProfile : MonoBehaviour {
     private const string PostDataURL = "http://jogos.icmc.usp.br/pag/data/upload.php?";
     private int attemptNumber = 1; //TODO: entender o por quê desse int
 
+    [SerializeField]
     private string sessionUID;
+    [SerializeField]
     private string profileString;
 
+    [SerializeField]
     private int mapCount = 0;
+    [SerializeField]
     private int curMapId;
 
+    [SerializeField]
     private List<Vector2Int> visitedRooms = new List<Vector2Int>();
+    [SerializeField]
     private int mapVisitedCount = 0;
+    [SerializeField]
     private int mapVisitedCountUnique = 0;
+    [SerializeField]
     private int keysTaken = 0;
+    [SerializeField]
     private int keysUsed = 0;
 
 
