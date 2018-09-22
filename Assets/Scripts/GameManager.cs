@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
+    private List<TextAsset> maps = new List<TextAsset>();
+    private List<TextAsset> rooms = new List<TextAsset>();
     private Map map = null;
     public RoomBHV roomPrefab;
     public Transform roomsParent;  //Transform to hold rooms for leaner hierarchy view
     public RoomBHV[,] roomBHVMap; //2D array for easy room indexing
     public float roomSpacingX = 10.5f; //Spacing between rooms: X
     public float roomSpacingY = 6f; //Spacing between rooms: Y
-    private string mapDirectory = "Assets/Data/Batch";
-    private static string[] maps = null;
-    private static string[] rooms = null;
+    private string mapDirectory;
+    //private static string[] maps = null;
+    //private static string[] rooms = null;
     private int currentMapId = 0;
     private int currentTestBatchId = 0;
     //public string mapFilePath = "Assets/Data/map.txt"; //Path to load map data from
@@ -35,9 +38,19 @@ public class GameManager : MonoBehaviour {
         } else if (instance != this) {
             Destroy(gameObject);
         }
+        //mapDirectory = Application.dataPath + "/Data/Batch";
+        readRooms = false;
         DontDestroyOnLoad(gameObject);
         AnalyticsEvent.GameStart();
-        if (Directory.Exists(mapDirectory + currentTestBatchId))
+
+        maps.Add(Resources.Load<TextAsset>("Batch0/Lizard"));
+        maps.Add(Resources.Load<TextAsset>("Batch0/MyMoon"));
+        maps.Add(Resources.Load<TextAsset>("Batch0/MyLizard"));
+        maps.Add(Resources.Load<TextAsset>("Batch0/Dragon"));
+        maps.Add(Resources.Load<TextAsset>("Batch0/MyDragon"));
+        maps.Add(Resources.Load<TextAsset>("Batch0/Moon"));
+        
+        /*if (Directory.Exists(mapDirectory + currentTestBatchId))
         {
             Debug.Log(mapDirectory + currentTestBatchId);
             // This path is a directory
@@ -47,7 +60,7 @@ public class GameManager : MonoBehaviour {
         else
         {
             Debug.Log("Something is wrong with the map directory!");
-        }
+        }*/
 
 
     }
@@ -60,6 +73,8 @@ public class GameManager : MonoBehaviour {
         files = Directory.GetFiles(targetDirectory, search);
         foreach (string file in files)
         {
+            //AssetDatabase.ImportAsset(file);
+            TextAsset asset = Resources.Load<TextAsset>("test");
             Debug.Log("File: " + file);
         }
     }
@@ -84,9 +99,9 @@ public class GameManager : MonoBehaviour {
 
     void LoadMap(int mapId) {
         if (readRooms) { //deve ler também os tiles das salas?
-            map = new Map(maps[mapId], rooms[mapId]);
+            map = new Map(maps[mapId].text, rooms[mapId].text);
         } else { //apenas as salas, sem tiles
-            map = new Map(maps[mapId]);
+            map = new Map(maps[mapId].text);
         }
     }
 
@@ -148,11 +163,12 @@ public class GameManager : MonoBehaviour {
     {
         if (maps != null)
         {
-            foreach (string file in maps)
+            Debug.Log("MapSize: " + maps.Count);
+            foreach (TextAsset file in maps)
             {
-                Debug.Log("Map: " + file);
+                Debug.Log("Map: " + file.text);
             }
-            Debug.Log("MapSize: " + maps.Length);
+            
             AnalyticsEvent.LevelStart(currentMapId);
             //Loads map from data
             LoadMap(currentMapId);
@@ -179,7 +195,7 @@ public class GameManager : MonoBehaviour {
     {
         PlayerProfile.instance.OnMapStart(id);
         PlayerProfile.instance.OnRoomEnter(new Vector2Int(map.startX, map.startY));
-        Debug.Log("Started Map -------------------------------");
+        Debug.Log("Started Profiling");
     }
 
     void OnApplicationQuit()
@@ -197,7 +213,7 @@ public class GameManager : MonoBehaviour {
         //TODO save every gameplay data
         //TODO make it load a new level
         Debug.Log("MapID:" +currentMapId);
-        Debug.Log("MapsLength:" + maps.Length);
+        Debug.Log("MapsLength:" + maps.Count);
 
         //Analytics for the level
         Dictionary<string, object> customParams = new Dictionary<string, object>();
@@ -222,7 +238,7 @@ public class GameManager : MonoBehaviour {
                 AnalyticsEvent.LevelQuit(currentTestBatchId + currentMapId, customParams);
                 break;
         }
-        if (currentMapId < (maps.Length - 1))
+        if (currentMapId < (maps.Count - 1))
         {
             Debug.Log("Next map");
             currentMapId++;
@@ -284,13 +300,34 @@ public class GameManager : MonoBehaviour {
         formMenu.SetActive(false);
         currentTestBatchId++;
         currentMapId = 0;
-        
-        if (Directory.Exists(mapDirectory))
+        if (currentTestBatchId == 1)
+            readRooms = true;
+
+        maps.Clear();
+        maps = new List<TextAsset>();
+        rooms.Clear();
+        rooms = new List<TextAsset>();
+
+        maps.Add(Resources.Load<TextAsset>("Batch1/Eagle"));
+        maps.Add(Resources.Load<TextAsset>("Batch1/MyEagle"));
+        maps.Add(Resources.Load<TextAsset>("Batch1/Lion"));
+        maps.Add(Resources.Load<TextAsset>("Batch1/Snake"));
+        maps.Add(Resources.Load<TextAsset>("Batch1/MyLion"));
+        maps.Add(Resources.Load<TextAsset>("Batch1/MySnake"));
+
+        rooms.Add(Resources.Load<TextAsset>("Batch1/EagleRoom"));
+        rooms.Add(Resources.Load<TextAsset>("Batch1/MyEagleRoom"));
+        rooms.Add(Resources.Load<TextAsset>("Batch1/LionRoom"));
+        rooms.Add(Resources.Load<TextAsset>("Batch1/SnakeRoom"));
+        rooms.Add(Resources.Load<TextAsset>("Batch1/MyLionRoom"));
+        rooms.Add(Resources.Load<TextAsset>("Batch1/MySnakeRoom"));
+
+        /*if (Directory.Exists(mapDirectory))
         {
             // This path is a directory
             ProcessDirectory(mapDirectory+currentTestBatchId, "map*", ref maps);
             ProcessDirectory(mapDirectory+currentTestBatchId, "room*", ref rooms);
-        }
+        }*/
         LoadNewLevel();
         
     }
