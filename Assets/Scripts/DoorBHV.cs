@@ -9,6 +9,7 @@ public class DoorBHV : MonoBehaviour
     public int keyID;
     public bool isOpen;
     public Sprite lockedSprite;
+    public Sprite openedSprite;
     public Transform teleportTransform;
     //	public int moveX;
     //	public int moveY;
@@ -52,11 +53,16 @@ public class DoorBHV : MonoBehaviour
             if (keyID == 0 || isOpen)
             {
                 MovePlayerToNextRoom();
+                GameManager.instance.UpdateRoomGUI(destination.parentRoom.x, destination.parentRoom.y);
             }
             else if (Player.instance.keys.Contains(keyID))
             {
                 Player.instance.keys.Remove(keyID);
                 Player.instance.usedKeys.Add(keyID);
+                GameManager.instance.UpdateKeyGUI();
+                GameManager.instance.UpdateRoomGUI(destination.parentRoom.x, destination.parentRoom.y);
+                OpenDoor();
+                destination.OpenDoor();
                 isOpen = true;
                 destination.isOpen = true;
                 OnKeyUsed(keyID);
@@ -115,5 +121,11 @@ public class DoorBHV : MonoBehaviour
     private void OnKeyUsed(int id)
     {
         PlayerProfile.instance.OnKeyUsed(id);
+    }
+
+    public void OpenDoor()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.sprite = openedSprite;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,10 @@ public class GameManager : MonoBehaviour {
     private List<TextAsset> maps = new List<TextAsset>();
     private List<TextAsset> rooms = new List<TextAsset>();
     private Map map = null;
+    public AudioSource audioSource;
+    public AudioClip bgMusic, fanfarreMusic;
+    public TextMeshProUGUI keyText;
+    public TextMeshProUGUI roomText;
     public RoomBHV roomPrefab;
     public Transform roomsParent;  //Transform to hold rooms for leaner hierarchy view
     public RoomBHV[,] roomBHVMap; //2D array for easy room indexing
@@ -39,6 +44,9 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
         //mapDirectory = Application.dataPath + "/Data/Batch";
+
+        audioSource = GetComponent<AudioSource>();
+
         readRooms = false;
         DontDestroyOnLoad(gameObject);
         AnalyticsEvent.GameStart();
@@ -161,6 +169,7 @@ public class GameManager : MonoBehaviour {
 
     public void LoadNewLevel()
     {
+        ChangeMusic(bgMusic);
         if (maps != null)
         {
             Debug.Log("MapSize: " + maps.Count);
@@ -188,6 +197,7 @@ public class GameManager : MonoBehaviour {
         InstantiateRooms();
         Player.instance.AdjustCamera(map.startX, map.startY);
         Player.instance.SetRoom(map.startX, map.startY);
+        UpdateRoomGUI(map.startX, map.startY);
         OnStartMap(currentMapId);
     }
 
@@ -210,6 +220,7 @@ public class GameManager : MonoBehaviour {
 
     public void LevelComplete()
     {
+        ChangeMusic(fanfarreMusic);
         //TODO save every gameplay data
         //TODO make it load a new level
         Debug.Log("MapID:" +currentMapId);
@@ -279,6 +290,8 @@ public class GameManager : MonoBehaviour {
             Player pl = Player.instance;
             pl.cam = Camera.main;
             formMenu = GameObject.Find("Canvas").transform.Find("FormPanel").gameObject;
+            keyText = GameObject.Find("KeyUIText").GetComponent<TextMeshProUGUI>();
+            roomText = GameObject.Find("RoomUI").GetComponent<TextMeshProUGUI>();
             LoadNewLevel();
         }
     }
@@ -330,5 +343,24 @@ public class GameManager : MonoBehaviour {
         }*/
         LoadNewLevel();
         
+    }
+
+    public void UpdateKeyGUI()
+    {
+        keyText.text = "x" + Player.instance.keys.Count;
+    }
+
+    public void UpdateRoomGUI(int x, int y)
+    {
+        roomText.text = "Room: " + x/2 + "," + y/2;
+    }
+
+    public void ChangeMusic(AudioClip music)
+    {
+        if (audioSource.isPlaying)
+            audioSource.Stop();
+        audioSource.clip = music;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }
