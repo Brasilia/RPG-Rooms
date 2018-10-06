@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
     //public string mapFilePath = "Assets/Data/map.txt"; //Path to load map data from
     //public string roomsFilePath = "Assets/Data/rooms.txt";
     public bool readRooms = true;
-    public GameObject formMenu;
+    public GameObject formMenu, endingScreen;
 
     public enum LevelPlayState { InProgress, Won, Lost, Skip, Quit }
     public static LevelPlayState state = LevelPlayState.InProgress;
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
         {
             //AssetDatabase.ImportAsset(file);
             TextAsset asset = Resources.Load<TextAsset>("test");
-            Debug.Log("File: " + file);
+            //Debug.Log("File: " + file);
         }
     }
 
@@ -169,14 +169,15 @@ public class GameManager : MonoBehaviour {
 
     public void LoadNewLevel()
     {
+        Time.timeScale = 1f;
         ChangeMusic(bgMusic);
         if (maps != null)
         {
-            Debug.Log("MapSize: " + maps.Count);
+            /*Debug.Log("MapSize: " + maps.Count);
             foreach (TextAsset file in maps)
             {
                 Debug.Log("Map: " + file.text);
-            }
+            }*/
             
             AnalyticsEvent.LevelStart(currentMapId);
             //Loads map from data
@@ -195,16 +196,18 @@ public class GameManager : MonoBehaviour {
             }
         }
         InstantiateRooms();
+        Player.instance.keys.Clear();
+        Player.instance.usedKeys.Clear();
         Player.instance.AdjustCamera(map.startX, map.startY);
         Player.instance.SetRoom(map.startX, map.startY);
         UpdateRoomGUI(map.startX, map.startY);
-        OnStartMap(currentMapId);
+        OnStartMap(currentMapId, currentTestBatchId, map);
     }
 
-    private void OnStartMap (int id)
+    private void OnStartMap (int id, int batch, Map map)
     {
-        PlayerProfile.instance.OnMapStart(id);
-        PlayerProfile.instance.OnRoomEnter(new Vector2Int(map.startX, map.startY));
+        PlayerProfile.instance.OnMapStart(id, batch, map.rooms);
+        PlayerProfile.instance.OnRoomEnter(map.startX, map.startY);
         Debug.Log("Started Profiling");
     }
 
@@ -231,11 +234,12 @@ public class GameManager : MonoBehaviour {
         customParams.Add("seconds_played", secondsElapsed);
         customParams.Add("keys", Player.instance.keys.Count);
         customParams.Add("locks", Player.instance.usedKeys.Count);
+        LoadForm();
 
         switch (state)
         {
             case LevelPlayState.Won:
-                AnalyticsEvent.LevelComplete(currentTestBatchId+currentMapId, customParams);
+                AnalyticsEvent.LevelComplete(currentTestBatchId + currentMapId, customParams);
                 break;
             case LevelPlayState.Lost:
                 AnalyticsEvent.LevelFail(currentTestBatchId + currentMapId, customParams);
@@ -249,23 +253,25 @@ public class GameManager : MonoBehaviour {
                 AnalyticsEvent.LevelQuit(currentTestBatchId + currentMapId, customParams);
                 break;
         }
+
+    }
+
+    public void CheckEndOfBatch()
+    {
+        PlayerProfile.instance.OnMapComplete();
         if (currentMapId < (maps.Count - 1))
         {
             Debug.Log("Next map");
             currentMapId++;
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
-            
-
-            
         }
         else
         {
-            Time.timeScale = 0f;
-            Debug.Log("Load Form");
-            LoadForm();
+            
+            Debug.Log("Load New Batch");
+            LoadNewBatch();
         }
-
     }
 
     void OnEnable()
@@ -289,9 +295,10 @@ public class GameManager : MonoBehaviour {
         {
             Player pl = Player.instance;
             pl.cam = Camera.main;
-            formMenu = GameObject.Find("Canvas").transform.Find("FormPanel").gameObject;
+            formMenu = GameObject.Find("Canvas").transform.Find("Form Questions").gameObject;
             keyText = GameObject.Find("KeyUIText").GetComponent<TextMeshProUGUI>();
             roomText = GameObject.Find("RoomUI").GetComponent<TextMeshProUGUI>();
+            endingScreen = GameObject.Find("Canvas").transform.Find("FormPanel").gameObject;
             LoadNewLevel();
         }
     }
@@ -302,6 +309,7 @@ public class GameManager : MonoBehaviour {
     }
     public void LoadForm()
     {
+        Time.timeScale = 0f;
         //Open a GUI here
         formMenu.SetActive(true);
         //TODO: Should check if there is a new batch, if not, set as inactive the continue button.
@@ -309,40 +317,48 @@ public class GameManager : MonoBehaviour {
     //Load a new batch of levels, if it exists
     public void LoadNewBatch()
     {
-        Time.timeScale = 1f;
         formMenu.SetActive(false);
         currentTestBatchId++;
         currentMapId = 0;
         if (currentTestBatchId == 1)
+        {
             readRooms = true;
 
-        maps.Clear();
-        maps = new List<TextAsset>();
-        rooms.Clear();
-        rooms = new List<TextAsset>();
+            maps.Clear();
+            maps = new List<TextAsset>();
+            rooms.Clear();
+            rooms = new List<TextAsset>();
 
-        maps.Add(Resources.Load<TextAsset>("Batch1/Eagle"));
-        maps.Add(Resources.Load<TextAsset>("Batch1/MyEagle"));
-        maps.Add(Resources.Load<TextAsset>("Batch1/Lion"));
-        maps.Add(Resources.Load<TextAsset>("Batch1/Snake"));
-        maps.Add(Resources.Load<TextAsset>("Batch1/MyLion"));
-        maps.Add(Resources.Load<TextAsset>("Batch1/MySnake"));
+            maps.Add(Resources.Load<TextAsset>("Batch1/Eagle"));
+            maps.Add(Resources.Load<TextAsset>("Batch1/MyEagle"));
+            maps.Add(Resources.Load<TextAsset>("Batch1/Lion"));
+            maps.Add(Resources.Load<TextAsset>("Batch1/Snake"));
+            maps.Add(Resources.Load<TextAsset>("Batch1/MyLion"));
+            maps.Add(Resources.Load<TextAsset>("Batch1/MySnake"));
 
-        rooms.Add(Resources.Load<TextAsset>("Batch1/EagleRoom"));
-        rooms.Add(Resources.Load<TextAsset>("Batch1/MyEagleRoom"));
-        rooms.Add(Resources.Load<TextAsset>("Batch1/LionRoom"));
-        rooms.Add(Resources.Load<TextAsset>("Batch1/SnakeRoom"));
-        rooms.Add(Resources.Load<TextAsset>("Batch1/MyLionRoom"));
-        rooms.Add(Resources.Load<TextAsset>("Batch1/MySnakeRoom"));
+            rooms.Add(Resources.Load<TextAsset>("Batch1/EagleRoom"));
+            rooms.Add(Resources.Load<TextAsset>("Batch1/MyEagleRoom"));
+            rooms.Add(Resources.Load<TextAsset>("Batch1/LionRoom"));
+            rooms.Add(Resources.Load<TextAsset>("Batch1/SnakeRoom"));
+            rooms.Add(Resources.Load<TextAsset>("Batch1/MyLionRoom"));
+            rooms.Add(Resources.Load<TextAsset>("Batch1/MySnakeRoom"));
 
-        /*if (Directory.Exists(mapDirectory))
+            /*if (Directory.Exists(mapDirectory))
+            {
+                // This path is a directory
+                ProcessDirectory(mapDirectory+currentTestBatchId, "map*", ref maps);
+                ProcessDirectory(mapDirectory+currentTestBatchId, "room*", ref rooms);
+            }*/
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+            //LoadNewLevel();
+        }
+        else
         {
-            // This path is a directory
-            ProcessDirectory(mapDirectory+currentTestBatchId, "map*", ref maps);
-            ProcessDirectory(mapDirectory+currentTestBatchId, "room*", ref rooms);
-        }*/
-        LoadNewLevel();
-        
+            //keyText.gameObject.SetActive(false);
+            //roomText.gameObject.SetActive(false);
+            endingScreen.SetActive(true);
+        }
     }
 
     public void UpdateKeyGUI()

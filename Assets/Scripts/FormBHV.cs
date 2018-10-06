@@ -40,7 +40,8 @@ public class FormBHV : MonoBehaviour {
             // TODO: lógica para submissão das respostas
             // Sugestão: passar todos os int para o formato int1, int2, int3... (csv)
             // e criar um novo método em player profile para receber essa adição e fazer o post
+            PlayerProfile.instance.OnFormAnswered(answer);
         }
-        Debug.Log("Chamado método Submit de FormBHV. Ainda não implementado completamente");
+        GameManager.instance.CheckEndOfBatch();
     }
 }

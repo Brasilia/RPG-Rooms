@@ -105,7 +105,7 @@ public class DoorBHV : MonoBehaviour
 
     private void OnRoomEnter()
     {
-        PlayerProfile.instance.OnRoomEnter(new Vector2Int(destination.parentRoom.x, destination.parentRoom.y));
+        PlayerProfile.instance.OnRoomEnter(destination.parentRoom.x, destination.parentRoom.y);
     }
 
     private void OnRoomFailExit()

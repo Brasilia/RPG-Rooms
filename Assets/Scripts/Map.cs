@@ -93,8 +93,8 @@ public class Map {
 
         //sizeX = int.Parse(streamReaderMap.ReadLine());
         //sizeY = int.Parse(streamReaderMap.ReadLine());
-        sizeX = int.Parse(NameLines[0]);
-        sizeY = int.Parse(NameLines[1]);
+        Room.sizeX = int.Parse(NameLines[0]);
+        Room.sizeY = int.Parse(NameLines[1]);
 
         int txtLine = 3;
         for (uint i = 2; i < NameLines.Length;)
@@ -103,7 +103,7 @@ public class Map {
 			roomX = int.Parse(NameLines[i++]);
 			roomY = int.Parse(NameLines[i++]);
 			txtLine += 2;
-			Debug.Log ("roomX " + roomX + "   roomY " + roomY + "   Line: " + txtLine);
+			//Debug.Log ("roomX " + roomX + "   roomY " + roomY + "   Line: " + txtLine);
 			rooms [roomX, roomY].InitializeTiles (); // aloca memória para os tiles
 			for (int x = 0; x < Room.sizeX; x++){
                 for (int y = 0; y < Room.sizeY; y++)

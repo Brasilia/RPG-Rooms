@@ -143,7 +143,7 @@ RectTransform:
   m_Children:
   - {fileID: 2142503251}
   m_Father: {fileID: 649107370}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -265,11 +265,11 @@ RectTransform:
   m_Father: {fileID: 1361720623}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -8.5}
-  m_SizeDelta: {x: 419, y: 629.6}
-  m_Pivot: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &251861217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Musics:\nFantasia Fantasia Kevin MacLeod (incompetech.com)\r\nLicensed
+  m_text: "Musicas:\nFantasia Fantasia Kevin MacLeod (incompetech.com)\r\nLicensed
     under Creative Commons: By Attribution 3.0 License\r\nhttp://creativecommons.org/licenses/by/3.0/\n\nThinking
     Out Loud Kevin MacLeod (incompetech.com)\r\nLicensed under Creative Commons: By
     Attribution 3.0 License\r\nhttp://creativecommons.org/licenses/by/3.0/"
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_fontSizeMin: 14
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_textAlignment: 514
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_margin: {x: 1.685791, y: 0, z: 1.685791, w: 0}
   m_textInfo:
     textComponent: {fileID: 251861217}
-    characterCount: 320
+    characterCount: 321
     spriteCount: 0
     spaceCount: 30
     wordCount: 46
@@ -483,12 +483,12 @@ RectTransform:
   m_Children:
   - {fileID: 1549333761}
   m_Father: {fileID: 649107370}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -550, y: 8.5}
-  m_SizeDelta: {x: 462.9, y: 172.45}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.4175695, y: 0.74}
+  m_AnchoredPosition: {x: 29.799988, y: 82.93999}
+  m_SizeDelta: {x: -83.6, y: -311.78}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &585940017
 MonoBehaviour:
@@ -549,17 +549,17 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 718839513}
-  - {fileID: 84423487}
   - {fileID: 585940016}
   - {fileID: 1361720623}
+  - {fileID: 718839513}
+  - {fileID: 84423487}
   m_Father: {fileID: 1659224451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &649107371
 MonoBehaviour:
@@ -602,11 +602,11 @@ RectTransform:
   m_Children:
   - {fileID: 1920579657}
   m_Father: {fileID: 649107370}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 35.6}
+  m_AnchoredPosition: {x: 0, y: 35.600006}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &718839514
@@ -869,13 +869,13 @@ RectTransform:
   m_Children:
   - {fileID: 251861216}
   m_Father: {fileID: 649107370}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 550, y: 8.5}
-  m_SizeDelta: {x: 419, y: 268.5}
-  m_Pivot: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.59113896, y: 0}
+  m_AnchorMax: {x: 1, y: 0.74}
+  m_AnchoredPosition: {x: 43.25, y: 82.94}
+  m_SizeDelta: {x: -64.5, y: -168.68}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1361720624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,11 +939,11 @@ RectTransform:
   m_Father: {fileID: 585940016}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015258789, y: -9.225006}
-  m_SizeDelta: {x: 462.9, y: 629.6}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1549333762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,12 +963,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Game Developed by:
-
-
-    Leonardo Tortoro Pereira
-
-    Rafael Miranda Lopes'
+  m_text: "Desenvolvido por:\n\nLeonardo Tortoro Pereira \n&\nRafael Miranda Lopes"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
@@ -995,8 +990,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1033,15 +1028,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 1.6858215, y: 0, z: 1.6871033, w: 0}
+  m_margin: {x: 1.6858215, y: 0, z: -0.38012695, w: 0}
   m_textInfo:
     textComponent: {fileID: 1549333762}
-    characterCount: 65
+    characterCount: 67
     spriteCount: 0
-    spaceCount: 9
-    wordCount: 9
+    spaceCount: 10
+    wordCount: 8
     linkCount: 0
-    lineCount: 4
+    lineCount: 5
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -1170,7 +1165,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1920579658
 MonoBehaviour:
@@ -1191,7 +1186,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Start
+  m_text: iniciar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
@@ -1259,7 +1254,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1920579658}
-    characterCount: 5
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -1418,7 +1413,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142503252
 MonoBehaviour:
@@ -1439,7 +1434,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Quit
+  m_text: Sair
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: 163292f6f226d954593d45b079f8aae0, type: 2}

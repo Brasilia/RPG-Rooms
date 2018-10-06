@@ -13,7 +13,7 @@ public class TriforceBHV : PlaceableRoomObject {
 		if (other.tag == "Player"){
             GameManager.state = GameManager.LevelPlayState.Won;
             //TODO change this to when the sierpinsk-force is taken
-            OnMapComplete();
+            //OnMapComplete();
             gm.LevelComplete();
         }
 	}
