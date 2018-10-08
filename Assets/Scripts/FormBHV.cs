@@ -34,14 +34,25 @@ public class FormBHV : MonoBehaviour {
 
     public void Submit ()
     {
+        bool isAnswered = true;
         foreach (FormQuestionBHV q in questions)
         {
-            int answer = q.value;
-            // TODO: lógica para submissão das respostas
-            // Sugestão: passar todos os int para o formato int1, int2, int3... (csv)
-            // e criar um novo método em player profile para receber essa adição e fazer o post
-            PlayerProfile.instance.OnFormAnswered(answer);
+            if (q.value == 0)
+                isAnswered = false;
         }
-        GameManager.instance.CheckEndOfBatch();
+        if (isAnswered)
+        {
+            Debug.Log("Answered Correctly");
+            foreach (FormQuestionBHV q in questions)
+            {
+                int answer = q.value;
+                Debug.Log("Value:" + q.value);
+                // TODO: lógica para submissão das respostas
+                // Sugestão: passar todos os int para o formato int1, int2, int3... (csv)
+                // e criar um novo método em player profile para receber essa adição e fazer o post
+                PlayerProfile.instance.OnFormAnswered(answer);
+            }
+            GameManager.instance.CheckEndOfBatch();
+        }
     }
 }

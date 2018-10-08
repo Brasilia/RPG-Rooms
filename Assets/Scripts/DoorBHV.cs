@@ -16,10 +16,15 @@ public class DoorBHV : MonoBehaviour
     [SerializeField]
     private DoorBHV destination;
     private RoomBHV parentRoom;
+    [SerializeField]
+    private AudioClip unlockSnd;
+
+    private AudioSource audioSrc;
 
     private void Awake()
     {
         parentRoom = transform.parent.GetComponent<RoomBHV>();
+        audioSrc = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
@@ -52,11 +57,13 @@ public class DoorBHV : MonoBehaviour
         {
             if (keyID == 0 || isOpen)
             {
+                audioSrc.PlayOneShot(audioSrc.clip, 0.8f);
                 MovePlayerToNextRoom();
                 GameManager.instance.UpdateRoomGUI(destination.parentRoom.x, destination.parentRoom.y);
             }
             else if (Player.instance.keys.Contains(keyID))
             {
+                audioSrc.PlayOneShot(unlockSnd, 0.7f);
                 Player.instance.keys.Remove(keyID);
                 Player.instance.usedKeys.Add(keyID);
                 GameManager.instance.UpdateKeyGUI();

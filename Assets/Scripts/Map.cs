@@ -7,6 +7,7 @@ public class Map {
 
 	public static int sizeX;
 	public static int sizeY;
+    public static int index;
 
 	public Room[,] rooms;
 	public int startX, startY;

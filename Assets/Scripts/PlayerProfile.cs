@@ -204,7 +204,7 @@ public class PlayerProfile : MonoBehaviour {
         //This connects to a server side php script that will write the data
         //string post_url = postDataURL + "name=" + WWW.EscapeURL(name) + "&data=" + data ;
         string post_url = PostDataURL;
-
+        Debug.Log("LogName:"+name);
         WWWForm form = new WWWForm();
         form.AddField("name", name);
         form.AddBinaryData("data", data, name + "_" + attemptNumber + ".txt", "text/plain");

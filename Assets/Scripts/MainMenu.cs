@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
-
+    public GameObject introScreen, mainScreen;
+    public void IntroScreen()
+    {
+        mainScreen.SetActive(false);
+        introScreen.SetActive(true);
+    }
     public void PlayGame()
     {
         SceneManager.LoadScene("Level");

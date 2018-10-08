@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public float speed = 5f;
     Animator anim;
     float lastX, lastY;
+    private AudioSource audioSrc;
 
 	// Use this for initialization
 	void Start () {
@@ -52,4 +53,10 @@ public class PlayerController : MonoBehaviour {
         anim.SetFloat("DirX", movement.x);
         anim.SetFloat("DirY", movement.y);
     }
+
+    public void PlayGetkey()
+    {
+        audioSrc.PlayOneShot(audioSrc.clip, 1.0f);
+    }
+
 }

@@ -34,18 +34,22 @@ public class FormQuestionBHV : MonoBehaviour {
     {
         if (!selected.isOn)
         {
+            //Debug.Log("IsOff:"+ int.Parse(selected.GetComponentInChildren<Text>().text));
+            value = 0;
             return;
         }
-        value = int.Parse(selected.GetComponentInChildren<Text>().text);
         if (selected.isOn)
         {
             foreach (Toggle t in toggles)
             {
                 if (t != selected)
                 {
+                    //Debug.Log("NotSelected:"+ int.Parse(t.GetComponentInChildren<Text>().text));
                     t.isOn = false;
+                    //Debug.Log("After Falsing");
                 }
             }
+            value = int.Parse(selected.GetComponentInChildren<Text>().text);
         }
     }
 

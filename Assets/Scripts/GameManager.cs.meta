@@ -1,11 +1,21 @@
 fileFormatVersion: 2
 guid: 1c5ea0c8007858143b10d104e7490d19
-timeCreated: 1516805865
-licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - audioSource: {instanceID: 0}
+  - bgMusic: {instanceID: 0}
+  - fanfarreMusic: {instanceID: 0}
+  - getKeySound: {fileID: 8300000, guid: b0fecfaa9d9cd26448eca762aa7710bd, type: 3}
+  - openLockSound: {instanceID: 0}
+  - changeRoomSound: {instanceID: 0}
+  - keyText: {instanceID: 0}
+  - roomText: {instanceID: 0}
+  - roomPrefab: {instanceID: 0}
+  - roomsParent: {instanceID: 0}
+  - formMenu: {instanceID: 0}
+  - endingScreen: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

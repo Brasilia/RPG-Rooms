@@ -10,11 +10,13 @@ public class Player : PlaceableRoomObject {
 	public int x { private set;  get;}
 	public int y { private set;  get;}
 	public Camera cam;
+    private AudioSource audioSrc;
 
 	void Awake(){
 		if (instance == null){
 			instance = this;
-		} else if (instance != this){
+            audioSrc = GetComponent<AudioSource>();
+        } else if (instance != this){
 			Destroy (gameObject);
 		}
 		DontDestroyOnLoad (gameObject);
@@ -25,6 +27,7 @@ public class Player : PlaceableRoomObject {
 	// Use this for initialization
 	void Start () {
         cam = Camera.main;
+
     }
 	
 	// Update is called once per frame
@@ -33,6 +36,7 @@ public class Player : PlaceableRoomObject {
 	}
 
 	public void GetKey(int keyID){
+        audioSrc.PlayOneShot(audioSrc.clip, 0.6f);
 		keys.Add (keyID);
 	}
 

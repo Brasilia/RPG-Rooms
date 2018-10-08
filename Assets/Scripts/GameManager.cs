@@ -12,11 +12,11 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     private List<TextAsset> maps = new List<TextAsset>();
     private List<TextAsset> rooms = new List<TextAsset>();
+    private List<int> randomLevelList = new List<int>();
     private Map map = null;
     public AudioSource audioSource;
     public AudioClip bgMusic, fanfarreMusic;
-    public TextMeshProUGUI keyText;
-    public TextMeshProUGUI roomText;
+    public TextMeshProUGUI keyText, roomText, levelText;
     public RoomBHV roomPrefab;
     public Transform roomsParent;  //Transform to hold rooms for leaner hierarchy view
     public RoomBHV[,] roomBHVMap; //2D array for easy room indexing
@@ -40,23 +40,35 @@ public class GameManager : MonoBehaviour {
         //Singleton
         if (instance == null) {
             instance = this;
+            audioSource = GetComponent<AudioSource>();
+
+            readRooms = false;
+            DontDestroyOnLoad(gameObject);
+            AnalyticsEvent.GameStart();
+            Debug.Log("Level Order");
+            for (int i = 0; i < 6; ++i)
+            {
+                int aux;
+                do
+                {
+                    aux = Random.Range(0, 6);
+                }
+                while (randomLevelList.Contains(aux));
+                randomLevelList.Add(aux);
+                Debug.Log(aux);
+            }
+            maps.Add(Resources.Load<TextAsset>("Batch0/Lizard"));
+            maps.Add(Resources.Load<TextAsset>("Batch0/MyMoon"));
+            maps.Add(Resources.Load<TextAsset>("Batch0/MyLizard"));
+            maps.Add(Resources.Load<TextAsset>("Batch0/Dragon"));
+            maps.Add(Resources.Load<TextAsset>("Batch0/MyDragon"));
+            maps.Add(Resources.Load<TextAsset>("Batch0/Moon"));
         } else if (instance != this) {
             Destroy(gameObject);
         }
         //mapDirectory = Application.dataPath + "/Data/Batch";
 
-        audioSource = GetComponent<AudioSource>();
-
-        readRooms = false;
-        DontDestroyOnLoad(gameObject);
-        AnalyticsEvent.GameStart();
-
-        maps.Add(Resources.Load<TextAsset>("Batch0/Lizard"));
-        maps.Add(Resources.Load<TextAsset>("Batch0/MyMoon"));
-        maps.Add(Resources.Load<TextAsset>("Batch0/MyLizard"));
-        maps.Add(Resources.Load<TextAsset>("Batch0/Dragon"));
-        maps.Add(Resources.Load<TextAsset>("Batch0/MyDragon"));
-        maps.Add(Resources.Load<TextAsset>("Batch0/Moon"));
+        
         
         /*if (Directory.Exists(mapDirectory + currentTestBatchId))
         {
@@ -179,9 +191,9 @@ public class GameManager : MonoBehaviour {
                 Debug.Log("Map: " + file.text);
             }*/
             
-            AnalyticsEvent.LevelStart(currentMapId);
+            AnalyticsEvent.LevelStart(randomLevelList[currentMapId]);
             //Loads map from data
-            LoadMap(currentMapId);
+            LoadMap(randomLevelList[currentMapId]);
         }
         else
         {
@@ -200,8 +212,9 @@ public class GameManager : MonoBehaviour {
         Player.instance.usedKeys.Clear();
         Player.instance.AdjustCamera(map.startX, map.startY);
         Player.instance.SetRoom(map.startX, map.startY);
+        UpdateLevelGUI();
         UpdateRoomGUI(map.startX, map.startY);
-        OnStartMap(currentMapId, currentTestBatchId, map);
+        OnStartMap(randomLevelList[currentMapId], currentTestBatchId, map);
     }
 
     private void OnStartMap (int id, int batch, Map map)
@@ -226,7 +239,7 @@ public class GameManager : MonoBehaviour {
         ChangeMusic(fanfarreMusic);
         //TODO save every gameplay data
         //TODO make it load a new level
-        Debug.Log("MapID:" +currentMapId);
+        Debug.Log("MapID:" + randomLevelList[currentMapId]);
         Debug.Log("MapsLength:" + maps.Count);
 
         //Analytics for the level
@@ -239,18 +252,18 @@ public class GameManager : MonoBehaviour {
         switch (state)
         {
             case LevelPlayState.Won:
-                AnalyticsEvent.LevelComplete(currentTestBatchId + currentMapId, customParams);
+                AnalyticsEvent.LevelComplete(currentTestBatchId + randomLevelList[currentMapId], customParams);
                 break;
             case LevelPlayState.Lost:
-                AnalyticsEvent.LevelFail(currentTestBatchId + currentMapId, customParams);
+                AnalyticsEvent.LevelFail(currentTestBatchId + randomLevelList[currentMapId], customParams);
                 break;
             case LevelPlayState.Skip:
-                AnalyticsEvent.LevelSkip(currentTestBatchId + currentMapId, customParams);
+                AnalyticsEvent.LevelSkip(currentTestBatchId + randomLevelList[currentMapId], customParams);
                 break;
             case LevelPlayState.InProgress:
             case LevelPlayState.Quit:
             default:
-                AnalyticsEvent.LevelQuit(currentTestBatchId + currentMapId, customParams);
+                AnalyticsEvent.LevelQuit(currentTestBatchId + randomLevelList[currentMapId], customParams);
                 break;
         }
 
@@ -298,6 +311,7 @@ public class GameManager : MonoBehaviour {
             formMenu = GameObject.Find("Canvas").transform.Find("Form Questions").gameObject;
             keyText = GameObject.Find("KeyUIText").GetComponent<TextMeshProUGUI>();
             roomText = GameObject.Find("RoomUI").GetComponent<TextMeshProUGUI>();
+            levelText = GameObject.Find("LevelUI").GetComponent<TextMeshProUGUI>();
             endingScreen = GameObject.Find("Canvas").transform.Find("FormPanel").gameObject;
             LoadNewLevel();
         }
@@ -371,12 +385,26 @@ public class GameManager : MonoBehaviour {
         roomText.text = "Room: " + x/2 + "," + y/2;
     }
 
+    public void UpdateLevelGUI()
+    {
+        int aux = currentMapId + 1 + (currentTestBatchId * maps.Count);
+        levelText.text = "Nível: " + aux + "/12";
+    }
+
     public void ChangeMusic(AudioClip music)
     {
         if (audioSource.isPlaying)
             audioSource.Stop();
+        if (music == fanfarreMusic)
+        {
+            //Debug.Log("Decreasing volume");
+            audioSource.volume = 0.3f;
+        }
+        else
+            audioSource.volume = 1.0f;
         audioSource.clip = music;
         audioSource.loop = true;
         audioSource.Play();
     }
+    
 }
