@@ -332,8 +332,11 @@ public class GameManager : MonoBehaviour {
     public void LoadNewBatch()
     {
         formMenu.SetActive(false);
-        currentTestBatchId++;
+        //currentTestBatchId++;
+        //Just for the ToG version, we skip the second batch as only the first was used, so we use this line instead
+        currentTestBatchId = 2;
         currentMapId = 0;
+        
         if (currentTestBatchId == 1)
         {
             readRooms = true;
@@ -388,7 +391,7 @@ public class GameManager : MonoBehaviour {
     public void UpdateLevelGUI()
     {
         int aux = currentMapId + 1 + (currentTestBatchId * maps.Count);
-        levelText.text = "Nível: " + aux + "/12";
+        levelText.text = "Level: " + aux + " / 6";
     }
 
     public void ChangeMusic(AudioClip music)
